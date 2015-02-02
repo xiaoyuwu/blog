@@ -1,0 +1,39 @@
+<p>
+  <strong>Title:</strong>
+  <%= @article.title %>
+</p>
+<p>
+  <strong>Text:</strong>
+  <%= @article.text %>
+</p>
+<h2>Comments</h2>
+<% @article.comments.each do |f|%>
+    <p>
+      <strong>Commenter:</strong>
+      <%=f.commenter%>
+    </p>
+    <p>
+      <strong>Body:</strong>
+      <%=f.body%>
+    </p>
+    <p>
+      <%=link_to "Delete Comment",[f.article, f],
+      method: :delete, data: {confirm: 'Are you sure?'}%>
+    </p>
+<%end%>
+<h2>Add a Comment here</h2>
+<%= form_for([@article, @article.comments.build]) do |f|%>
+    <p>
+      <%=f.label :commenter%><br>
+      <%=f.text_field :commenter%>
+    </p>
+    <p>
+      <%= f.label :body %><br>
+      <%= f.text_area :body %>
+    </p>
+    <p>
+      <%= f.submit %>
+    </p>
+<%end%>
+
+<%= link_to "All Articles", articles_path %>
